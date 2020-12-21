@@ -10,21 +10,24 @@
  ******************************************************************************/
 
 #include "App.h"
-#include "Button.h"
-#include "Led.h"
-#include "Dio.h"
 
+void Clock_init(void){
+  uint8 i,j;
+  SYSCTL_REGCGC2_REG|=(0x3F);
+  for(i=0;i<3;i++)
+  {
+    j=i+1;
+  }
+}
 /* Description: Task executes once to initialize all the Modules */
 void Init_Task(void)
-{
+{    
+    Clock_init();
+    /*initialize Port Driver*/
+    Port_Init(Pins);
     /* Initialize Dio Driver */
     Dio_Init(&Dio_Configuration);
 
-    /* Initialize LED Driver */
-    LED_init();
-	
-    /* Initialize BUTTON Driver */
-    BUTTON_init();
 }
 
 /* Description: Task executes every 20 Mili-seconds to check the button state */

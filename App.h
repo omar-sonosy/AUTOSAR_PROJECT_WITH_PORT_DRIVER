@@ -11,9 +11,16 @@
 
 #ifndef APP_H_
 #define APP_H_
-
+#include "tm4c123gh6pm_registers.h"
 #include "Std_Types.h"
+#include "Port.h"
+#include "Button.h"
+#include "Led.h"
+#include "Dio.h"
 
+
+/*Description : enable clock to all ports*/
+void Clock_init(void);
 /* Description: Task executes once to initialize all the Modules */
 void Init_Task(void);
 
