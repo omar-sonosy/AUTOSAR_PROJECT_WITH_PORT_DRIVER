@@ -20,6 +20,6 @@ Std_ReturnType Det_ReportError( uint16 ModuleId,
     {
 
     }
-    return E_OK;
+    /*return E_OK;*/
 }
 

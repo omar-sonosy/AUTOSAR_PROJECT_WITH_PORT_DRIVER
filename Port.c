@@ -127,20 +127,23 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             /*if the pin is configured as input pin*/
                             CLEAR_BIT(GPIO_PORTA_DIR_REG,current_pin_ID);/*clear bit to set as input*/
                             /*check if the bit is pull up*/
-                            if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
                               /*set input as pull up*/
                               SET_BIT(GPIO_PORTA_PUR_REG,current_pin_ID);
-                            }else{
-                              CLEAR_BIT(GPIO_PORTA_PUR_REG,current_pin_ID);
-                            }
-                            /*check if the bit is pull down*/
-                            if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                              /*set input bit as pull down*/
-                              SET_BIT(GPIO_PORTA_PDR_REG,current_pin_ID);
-                            }else{
                               CLEAR_BIT(GPIO_PORTA_PDR_REG,current_pin_ID);
                             }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTA_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTA_PUR_REG,current_pin_ID);
+                            }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTA_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTA_PUR_REG,current_pin_ID);
+                            }
                           }else{
+                            /*if the pin is output*/
                             SET_BIT(GPIO_PORTA_DIR_REG,current_pin_ID);/*set bit as output bit*/
                             CLEAR_BIT(GPIO_PORTA_PUR_REG,current_pin_ID);/*clear pull up value*/
                             CLEAR_BIT(GPIO_PORTA_PDR_REG,current_pin_ID);/*clear pull down value*/
@@ -176,20 +179,23 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             /*if the pin is configured as input pin*/
                             CLEAR_BIT(GPIO_PORTB_DIR_REG,current_pin_ID);/*cleat bit to set as input*/
                             /*check if the bit is pull up*/
-                            if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
                               /*set input as pull up*/
                               SET_BIT(GPIO_PORTB_PUR_REG,current_pin_ID);
-                            }else{
-                              CLEAR_BIT(GPIO_PORTB_PUR_REG,current_pin_ID);
-                            }
-                            /*check if the bit is pull down*/
-                            if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                              /*set input bit as pull down*/
-                              SET_BIT(GPIO_PORTB_PDR_REG,current_pin_ID);
-                            }else{
                               CLEAR_BIT(GPIO_PORTB_PDR_REG,current_pin_ID);
                             }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTB_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTB_PUR_REG,current_pin_ID);
+                            }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTB_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTB_PUR_REG,current_pin_ID);
+                            }
                           }else{
+                            /*if the pin is output*/
                             SET_BIT(GPIO_PORTB_DIR_REG,current_pin_ID);/*set bit as output bit*/
                             CLEAR_BIT(GPIO_PORTB_PUR_REG,current_pin_ID);/*clear pull up value*/
                             CLEAR_BIT(GPIO_PORTB_PDR_REG,current_pin_ID);/*clear pull down value*/
@@ -203,8 +209,8 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                         }
                         break;
         case 0xC0:      {
-                          if(((current_pin_ID)>=(uint8)0 )&& ((current_pin_ID)<=(uint8)3)){
-                            #warning "you are trying to re-configure the J-tag pins, this configuration will be skipped"
+                          if((current_pin_ID)<=(uint8)3){
+                            /*J-Tag pins, so it will be skipped*/
                           }else{
                              if((ConfigPtr->Digital_or_Analog)==(ANALOG_PIN))/*if the pin is conigured as analog*/
                               {
@@ -226,21 +232,24 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             if(PORT_INPUT_PIN==(ConfigPtr->Dir)){
                               /*if the pin is configured as input pin*/
                               CLEAR_BIT(GPIO_PORTC_DIR_REG,current_pin_ID);/*cleat bit to set as input*/
-                              /*check if the bit is pull up*/
-                              if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
-                                /*set input as pull up*/
-                                SET_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);
-                              }else{
-                                CLEAR_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);
-                              }
-                              /*check if the bit is pull down*/
-                              if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                                /*set input bit as pull down*/
-                                SET_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);
-                              }else{
-                                CLEAR_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);
-                              }
+                            /*check if the bit is pull up*/
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
+                              /*set input as pull up*/
+                              SET_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);
+                            }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);
                             }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);
+                            }
+                            }else{
+                              /*the pin is output pin*/
                               SET_BIT(GPIO_PORTC_DIR_REG,current_pin_ID);/*set bit as output bit*/
                               CLEAR_BIT(GPIO_PORTC_PUR_REG,current_pin_ID);/*clear pull up value*/
                               CLEAR_BIT(GPIO_PORTC_PDR_REG,current_pin_ID);/*clear pull down value*/
@@ -285,20 +294,23 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             /*if the pin is configured as input pin*/
                             CLEAR_BIT(GPIO_PORTD_DIR_REG,current_pin_ID);/*cleat bit to set as input*/
                             /*check if the bit is pull up*/
-                            if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
                               /*set input as pull up*/
                               SET_BIT(GPIO_PORTD_PUR_REG,current_pin_ID);
-                            }else{
-                              CLEAR_BIT(GPIO_PORTD_PUR_REG,current_pin_ID);
-                            }
-                            /*check if the bit is pull down*/
-                            if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                              /*set input bit as pull down*/
-                              SET_BIT(GPIO_PORTD_PDR_REG,current_pin_ID);
-                            }else{
                               CLEAR_BIT(GPIO_PORTD_PDR_REG,current_pin_ID);
                             }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTD_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTD_PUR_REG,current_pin_ID);
+                            }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTD_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTD_PUR_REG,current_pin_ID);
+                            }
                           }else{
+                            /*the pin is output pin*/
                             SET_BIT(GPIO_PORTD_DIR_REG,current_pin_ID);/*set bit as output bit*/
                             CLEAR_BIT(GPIO_PORTD_PUR_REG,current_pin_ID);/*clear pull up value*/
                             CLEAR_BIT(GPIO_PORTD_PDR_REG,current_pin_ID);/*clear pull down value*/
@@ -333,20 +345,23 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             /*if the pin is configured as input pin*/
                             CLEAR_BIT(GPIO_PORTE_DIR_REG,current_pin_ID);/*cleat bit to set as input*/
                             /*check if the bit is pull up*/
-                            if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
                               /*set input as pull up*/
                               SET_BIT(GPIO_PORTE_PUR_REG,current_pin_ID);
-                            }else{
-                              CLEAR_BIT(GPIO_PORTE_PUR_REG,current_pin_ID);
-                            }
-                            /*check if the bit is pull down*/
-                            if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                              /*set input bit as pull down*/
-                              SET_BIT(GPIO_PORTE_PDR_REG,current_pin_ID);
-                            }else{
                               CLEAR_BIT(GPIO_PORTE_PDR_REG,current_pin_ID);
                             }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTE_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTE_PUR_REG,current_pin_ID);
+                            }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTE_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTE_PUR_REG,current_pin_ID);
+                            }
                           }else{
+                            /*the pin is output pin*/
                             SET_BIT(GPIO_PORTE_DIR_REG,current_pin_ID);/*set bit as output bit*/
                             CLEAR_BIT(GPIO_PORTE_PUR_REG,current_pin_ID);/*clear pull up value*/
                             CLEAR_BIT(GPIO_PORTE_PDR_REG,current_pin_ID);/*clear pull down value*/
@@ -390,20 +405,23 @@ void Port_Init(const Port_ConfigType* ConfigPtr){
                             /*if the pin is configured as input pin*/
                             CLEAR_BIT(GPIO_PORTF_DIR_REG,current_pin_ID);/*cleat bit to set as input*/
                             /*check if the bit is pull up*/
-                            if(PORT_PULL_UP_ON==(ConfigPtr->Pull_up)){
+                            if(PORT_PULL_UP==(ConfigPtr->Pull_value)){
                               /*set input as pull up*/
                               SET_BIT(GPIO_PORTF_PUR_REG,current_pin_ID);
-                            }else{
-                              CLEAR_BIT(GPIO_PORTF_PUR_REG,current_pin_ID);
-                            }
-                            /*check if the bit is pull down*/
-                            if(PORT_PULL_DOWN_ON==(ConfigPtr->Pull_down)){
-                              /*set input bit as pull down*/
-                              SET_BIT(GPIO_PORTF_PDR_REG,current_pin_ID);
-                            }else{
                               CLEAR_BIT(GPIO_PORTF_PDR_REG,current_pin_ID);
                             }
+                            /*cehck if the bit is pull down*/
+                            else if(PORT_PULL_DOWN==(ConfigPtr->Pull_value)){
+                              /*set input as pull down*/
+                              SET_BIT(GPIO_PORTF_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTF_PUR_REG,current_pin_ID);
+                            }else{
+                              /*if Pull option is disable or invalide pull value(default value)*/
+                              CLEAR_BIT(GPIO_PORTF_PDR_REG,current_pin_ID);
+                              CLEAR_BIT(GPIO_PORTF_PUR_REG,current_pin_ID);
+                            }
                           }else{
+                            /*pin is output pin*/
                             SET_BIT(GPIO_PORTF_DIR_REG,current_pin_ID);/*set bit as output bit*/
                             CLEAR_BIT(GPIO_PORTF_PUR_REG,current_pin_ID);/*clear pull up value*/
                             CLEAR_BIT(GPIO_PORTF_PDR_REG,current_pin_ID);/*clear pull down value*/

@@ -6,17 +6,21 @@
  *
  * Description: Source file for Application Tasks.
  *
- * Author: Mohamed Tarek
+ * Author: Mohamed Tarek & Omar Hany :)
  ******************************************************************************/
 
 #include "App.h"
+
+
+/*function to initialize clock for all ports*/
 
 void Clock_init(void){
   uint8 i,j;
   SYSCTL_REGCGC2_REG|=(0x3F);
   for(i=0;i<3;i++)
   {
-    j=i+1;
+    j=i;
+    i=j;
   }
 }
 /* Description: Task executes once to initialize all the Modules */
@@ -24,7 +28,7 @@ void Init_Task(void)
 {    
     Clock_init();
     /*initialize Port Driver*/
-    Port_Init(Pins);
+    Port_Init(&Pins[0]);
     /* Initialize Dio Driver */
     Dio_Init(&Dio_Configuration);
 

@@ -75,24 +75,22 @@
 /*Default Pin Initial Value*/
 #define PORT_DEFAULT_PIN_INITIAL_VALUE  (STD_LOW)
 
-/*Dfault Pin Pull up Value*/
-#define PORT_DEFAULT_PULL_UP_VALUE      (STD_OFF)
 
 /*Pull up activated*/
-#define PORT_PULL_UP_ON                 (STD_ON)
+#define PORT_PULL_UP                    (1U)
 
-/*Pull up not activated*/
-#define PORT_PULL_UP_OFF                 (STD_OFF)
+
+/*Pull Down activated*/
+#define PORT_PULL_DOWN                  (2U)
+
+
+/*Built in Pull option is not activated*/ 
+#define PORT_PULL_OFF                   (0U)
 
 
 /*Default Pin Pull down Value*/
-#define PORT_DEFAULT_PULL_DOWN_VALUE    (STD_OFF)
+#define PORT_DEFAULT_PULL_VALUE         (PORT_PULL_OFF)
 
-/*Pull Down Activated*/
-#define PORT_PULL_DOWN_ON               (STD_ON)
-
-/*Pull Down not Activated*/
-#define PORT_PULL_DOWN_OFF              (STD_OFF)
 
 
 /*Digital or Analog definition*/
